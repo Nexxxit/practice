@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+:root {
+  --white-900: rgba(255, 255, 255, 1);
+  --black-25: rgba(244, 244, 244, 1);
+  --black-50: rgba(232, 232, 232, 1);
+  --black-100: rgba(209, 209, 209, 1);
+  --black-900: rgba(25, 25, 25, 1);
+  --purple-100: rgba(240, 231, 255, 1);
+  --purple-200: rgba(225, 206, 255, 1);
+  --purple-300: rgba(210, 182, 255, 1);
+  --purple-400: rgba(195, 157, 255, 1);
+  --purple-700: rgba(106, 11, 255, 1);
+  --purple-800: rgba(85, 9, 204, 1);
+  --purple-900: rgba(64, 7, 153, 1);
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+}
+
+/* .active {
+  color: var(--purple-700);
+} */
