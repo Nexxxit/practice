@@ -1,0 +1,47 @@
+.pagination__button,
+.pagination__dots {
+  color: var(--black-700);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: 0;
+}
+
+.pagination__button {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.pagination__button--selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  gap: 10px;
+  border-radius: 2px;
+  background-color: var(--purple-700);
+  color: white;
+}
+
+.pagination__button-back {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.pagination__button-next {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
