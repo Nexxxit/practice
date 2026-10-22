@@ -1,0 +1,30 @@
+.question-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: var(--main-shadow);
+}
+
+.question-card-skeleton__title-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0 24px;
+}
+
+.question-card-skeleton__dot {
+  margin-top: 8px;
+}
+
+.question-card-skeleton__icon {
+  margin-left: auto;
+}
+
+.pagination-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

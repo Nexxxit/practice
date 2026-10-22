@@ -1,0 +1,6 @@
+.question-details-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
