@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-    baseUrl: 'https://api.yeatwork.ru',
+    baseUrl: '/api',
     questions: '/questions/public-questions',
     questionsBySlug: '/questions/by-slug',
     specialization: '/specializations',
