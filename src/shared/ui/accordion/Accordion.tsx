@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/cn"
 import { createContext, useContext, useState } from "react"
-import chevrone_down from '@/assets/Chevrone_Down.svg'
+import { ChevroneDown } from "@/shared/icons/ChevroneDown"
 import './accordion.css'
 
 type AccordionBaseProps = {
@@ -17,7 +17,7 @@ type AccordionTriggerProps = AccordionBaseProps
 type AccordionContentProps = AccordionBaseProps
 
 
-const AccordionContext = createContext<{ isOpen: boolean; toggle: () => void; } | null>(null)
+const AccordionContext = createContext<{ isOpen: boolean; everOpen: boolean; toggle: () => void; } | null>(null)
 
 const useAccordion = () => {
     const ctx = useContext(AccordionContext)
@@ -27,13 +27,16 @@ const useAccordion = () => {
 
 export const Accordion = ({ children, defaultOpen = false, className }: AccordionRootProps) => {
     const [isOpen, setOpen] = useState(defaultOpen)
+    const [everOpen, setEverOpen] = useState(defaultOpen)
 
-    const toggle = () => {
-        setOpen(prev => !prev)
-    }
+    const toggle = () => setOpen(prev => {
+        if (!prev) setEverOpen(true)
+        return !prev
+    })
+
 
     return (
-        <AccordionContext.Provider value={{ isOpen, toggle }}>
+        <AccordionContext.Provider value={{ isOpen, toggle, everOpen }}>
             <article className={cn("accordion", className)}>
                 {children}
             </article>
@@ -53,18 +56,22 @@ Accordion.Trigger = ({ children, className }: AccordionTriggerProps) => {
         >
             {children}
             <span className={cn("accordion__icon", isOpen && "accordion__icon--open")}>
-                <img src={chevrone_down} />
+                <ChevroneDown />
             </span>
         </button>
     )
 }
 
 Accordion.Content = ({ children, className }: AccordionContentProps) => {
-    const { isOpen } = useAccordion()
+    const { isOpen, everOpen } = useAccordion()
 
     return (
-        <div className={cn("accordion__content", className)} hidden={!isOpen}>
-            {children}
+        <div className={cn("accordion__content-wrapper", isOpen && "accordion__content-wrapper--open")}>
+            {everOpen && (
+                <div className={cn("accordion__content", className)}>
+                    {children}
+                </div>
+            )}
         </div>
     )
 }

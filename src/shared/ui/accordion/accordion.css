@@ -4,21 +4,20 @@
   border-radius: 8px;
   padding: 24px 0;
   box-shadow: var(--main-shadow);
-  gap: 24px;
 }
 
 .accordion__trigger {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 24px;
-  gap: 278px;
 }
 
 .accordion__icon {
   width: 24px;
   height: 24px;
   color: var(--purple-700);
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
@@ -27,5 +26,20 @@
 }
 
 .accordion__content {
-  padding: 0 24px 0 24px;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.accordion__content > *:first-child {
+  margin-top: 12px;
+}
+
+.accordion__content-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.accordion__content-wrapper--open {
+  grid-template-rows: 1fr;
 }

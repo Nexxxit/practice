@@ -1,7 +1,9 @@
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   padding: 8px 112px;
-  gap: 323px;
   background-color: rgba(255, 255, 255, 1);
   align-items: center;
   justify-content: center;
@@ -10,7 +12,8 @@
 
 .header__inner {
   display: flex;
-  width: 1440px;
+  width: 100%;
+  max-width: 1440px;
   align-items: center;
   justify-content: space-between;
 }
@@ -18,7 +21,6 @@
 .header__nav-wrapper {
   display: flex;
   gap: 40px;
-  width: 658px;
   align-items: center;
 }
 
@@ -45,4 +47,105 @@
   display: flex;
   align-items: center;
   gap: 26px;
+}
+
+.header__section {
+  display: none;
+  position: relative;
+}
+
+.header__burger-wrap {
+  display: none;
+  position: relative;
+}
+
+.header__section-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--black-900);
+}
+
+.header__section-button svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(180deg);
+  color: var(--black-700);
+  transition: transform 0.2s;
+}
+
+.header__section-button--open svg {
+  transform: rotate(0deg);
+}
+
+.header__burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 33px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--black-900);
+}
+
+.header__dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background-color: var(--white-900);
+  border: 1px solid var(--black-50);
+  border-radius: 16px;
+  box-shadow: var(--main-shadow);
+  z-index: 110;
+}
+
+.header__dropdown--nav {
+  left: 0;
+  min-width: 220px;
+}
+
+.header__dropdown--auth {
+  right: 0;
+  min-width: 220px;
+  align-items: stretch;
+}
+
+.header__dropdown--auth .button {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .header {
+    padding: 8px 16px;
+  }
+
+  .header__nav,
+  .header__auth {
+    display: none;
+  }
+
+  .header__section,
+  .header__burger-wrap {
+    display: block;
+  }
+}
+
+@media (max-width: 359px) {
+  .header__logo-text {
+    display: none;
+  }
 }

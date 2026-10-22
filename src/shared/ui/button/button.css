@@ -42,9 +42,10 @@
   background-color: var(--purple-900);
 }
 
-.button--primary:focus {
+.button--primary:focus-visible {
   background-color: var(--purple-800);
-  border: 2px solid var(--purple-900);
+  outline: 2px solid var(--purple-900);
+  outline-offset: 2px;
 }
 
 .button--primary:disabled {
@@ -65,9 +66,10 @@
   background-color: var(--purple-400);
 }
 
-.button--secondary:focus {
+.button--secondary:focus-visible {
   background-color: var(--purple-100);
-  border: 1px solid var(--purple-700);
+  outline: 1px solid var(--purple-700);
+  outline-offset: 2px;
 }
 
 .button--secondary:disabled {
@@ -98,7 +100,7 @@
   padding: 0;
 }
 
-.button--link:focus {
+.button--link:focus-visible {
   color: var(--purple-800);
   padding: 0;
 }
@@ -113,6 +115,35 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
+}
+
+.button--tertiary {
+  font-size: 16px;
+  line-height: 110%;
+  border: none;
+  color: var(--black-800);
+  background-color: none;
+}
+
+.button--tertiary:hover:not(:disabled) {
+  background-color: var(--black-25);
+}
+
+.button--tertiary:active {
+  background-color: var(--black-50);
+}
+
+.button--tertiary:focus-visible {
+  color: var(--black-700);
+  background-color: var(--black-25);
+  outline: 1px solid var(--black-700);
+  outline-offset: 2px;
+}
+
+.button--tertiary:disabled {
+  border: none;
+  background-color: none;
+  color: var(--black-200);
 }
 
 .button__icon {

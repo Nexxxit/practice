@@ -1,0 +1,147 @@
+.rich-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-wrap: break-word;
+}
+
+.rich-content h1,
+.rich-content h2,
+.rich-content h3,
+.rich-content h4,
+.rich-content h5,
+.rich-content h6 {
+  color: var(--black-900);
+  font-weight: 600;
+  line-height: 130%;
+}
+
+.rich-content h1 {
+  font-size: 22px;
+}
+
+.rich-content h2 {
+  font-size: 20px;
+}
+
+.rich-content h3,
+.rich-content h4,
+.rich-content h5 {
+  font-size: 18px;
+}
+
+.rich-content h6 {
+  font-size: 16px;
+}
+
+.rich-content p {
+  line-height: 150%;
+}
+
+.rich-content ul,
+.rich-content ol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 24px;
+}
+
+.rich-content ul {
+  list-style: disc;
+}
+
+.rich-content ol {
+  list-style: decimal;
+}
+
+.rich-content li {
+  line-height: 150%;
+}
+
+.rich-content li::marker {
+  color: var(--purple-700);
+}
+
+.rich-content a {
+  color: var(--purple-700);
+  text-decoration: underline;
+}
+
+.rich-content strong,
+.rich-content b {
+  font-weight: 700;
+  color: var(--black-900);
+}
+
+.rich-content code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--black-900);
+  color: var(--purple-200);
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.rich-content pre {
+  padding: 16px 20px;
+  border-radius: 10px;
+  border-left: 3px solid var(--purple-400);
+  background-color: var(--black-900);
+  color: var(--white-900);
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 14px;
+  line-height: 160%;
+  white-space: pre;
+  overflow-x: auto;
+  box-shadow: var(--main-shadow);
+}
+
+.rich-content pre code {
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.rich-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.rich-content pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rich-content pre::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--black-700);
+}
+
+.rich-content blockquote {
+  padding-left: 12px;
+  border-left: 3px solid var(--purple-300);
+  color: var(--black-700);
+  font-style: italic;
+}
+
+.rich-content img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.rich-content hr {
+  border: none;
+  border-top: 1px solid var(--black-50);
+}
+
+.rich-content table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.rich-content th,
+.rich-content td {
+  padding: 8px 12px;
+  border: 1px solid var(--black-50);
+  text-align: left;
+}

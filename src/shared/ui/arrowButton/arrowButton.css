@@ -1,0 +1,25 @@
+.arrow-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 23px;
+  border: 1px solid var(--purple-700);
+  color: var(--purple-700);
+  background-color: white;
+}
+
+.arrow-button__icon-rotated {
+  display: inline-block;
+  rotate: 180deg;
+}
+
+.arrow-button:disabled {
+  border-color: var(--purple-300);
+}
+
+.arrow-button:hover:not(:disabled) {
+  border-color: var(--purple-800);
+  cursor: pointer;
+}
