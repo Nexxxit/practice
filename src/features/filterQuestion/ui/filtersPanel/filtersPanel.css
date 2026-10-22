@@ -1,0 +1,19 @@
+.filters-panel__close {
+  display: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 0, 0, 1);
+}
+
+@media (max-width: 767px) {
+  .filters-panel__close {
+    display: inline-flex;
+    align-self: flex-end;
+  }
+}
