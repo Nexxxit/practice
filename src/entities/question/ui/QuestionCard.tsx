@@ -3,16 +3,25 @@ import { Accordion } from "@/shared/ui/accordion/Accordion"
 import { Badge } from "@/shared/ui/badge/Badge"
 import { Button } from "@/shared/ui/button/Button"
 import './questionCard.css'
-import kebab from '@/assets/Kebab.svg'
+import { Kebab } from '@/shared/icons/Kebab'
+import { RichContent } from '@/shared/ui/richContent/RichContent'
+import { Link, useLocation } from "react-router"
+import { ROUTES_CONFIG } from "@/shared/config/routes/routesConfig"
 
 interface QuestionCardProps {
     title: string
     score: number
-    description: string
+    shortAnswer: string
+    complexity: number
+    rate: number
+    slug: string
     imgSrc?: string
 }
 
-export const QuestionCard = ({ title, score, description, imgSrc = '' }: QuestionCardProps) => {
+export const QuestionCard = ({ title, complexity, rate, shortAnswer, slug, imgSrc = '' }: QuestionCardProps) => {
+    const { search } = useLocation()
+
+
     return (
         <Accordion className="question-card">
             <Accordion.Trigger className="question-card__header">
@@ -25,18 +34,20 @@ export const QuestionCard = ({ title, score, description, imgSrc = '' }: Questio
                 <div className="question-card__inner">
                     <div className="question-card__meta">
                         <div className="question-card__badges">
-                            <Badge type="rate" score={score} />
-                            <Badge type="complexity" score={score} />
+                            <Badge type="rate" score={rate} />
+                            <Badge type="complexity" score={complexity} />
                         </div>
                         <button type="button" className="button question-card__menu">
-                            <img src={kebab} className="question-card__menu-icon" />
+                            <Kebab className="question-card__menu-icon" />
                         </button>
                     </div>
                     {imgSrc && <img src={imgSrc} alt="quest" className="question-card__answer-img" />}
-                    <p className="question-card__description">{description}</p>
-                    <Button className="question-card__link-details" variant="link" size="L" icon_right={<ArrowRight />}>
-                        Подробнее
-                    </Button>
+                    <RichContent className='question-card__description' content={shortAnswer} />
+                    <Link className="question-card__link-details" to={{ pathname: `${ROUTES_CONFIG.QUESTIONS.BASE}/${slug}`, search }}>
+                        <Button className="question-card__link-button" variant="link" size="L" iconRight={<ArrowRight />}>
+                            Подробнее
+                        </Button>
+                    </Link>
                 </div>
             </Accordion.Content>
         </Accordion>

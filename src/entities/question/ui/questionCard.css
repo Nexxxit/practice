@@ -3,13 +3,15 @@
   height: 8px;
   border-radius: 50%;
   background-color: rgba(85, 51, 255, 1);
+  flex-shrink: 0;
+  margin-top: 8px;
 }
 
 .question-card__title-wrapper {
   display: flex;
-  align-items: center;
-  width: 668px;
+  align-items: flex-start;
   gap: 8px;
+  text-align: left;
 }
 
 .question-card__title {
@@ -22,8 +24,7 @@
 
 .question-card__meta {
   display: flex;
-  width: 644px;
-  gap: 425px;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -56,5 +57,5 @@
 }
 
 .question-card__link-details {
-  justify-content: end;
+  align-self: flex-end;
 }
