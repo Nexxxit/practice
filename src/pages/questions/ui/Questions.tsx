@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { QuestionCard } from "@/entities/question/ui/QuestionCard"
 import './questions.css'
 import { FiltersPanel } from "@/features/filterQuestion/ui/filtersPanel/FiltersPanel"
@@ -11,17 +11,39 @@ import { Filter } from "@/shared/icons/Filter"
 import { cn } from "@/shared/lib/cn"
 import { ErrorView } from "@/shared/ui/errorView/ErrorView"
 import { QuestionsSkeleton } from "./QuestionsSkeleton"
+import { useMediaQuery } from "@/shared/lib/useMediaQuery"
+import { useFocusTrap } from "@/shared/lib/useFocusTrap"
 
 export const Questions = () => {
     const [filtersOpen, setFiltersOpen] = useState(false)
     const { page, filters, setSearchParams } = useQuestionFilters()
+    const filtersPanelRef = useRef<HTMLElement>(null)
+    const filtersToggleRef = useRef<HTMLButtonElement>(null)
+    const isMobile = useMediaQuery('(max-width: 1023px)')
 
-    const { data: questions, isLoading, error, refetch } = useFetchQuestionQuery({ ...filters, page, limit: PER_PAGE })
+    const { currentData: questions, isFetching, error, refetch } = useFetchQuestionQuery({ ...filters, page, limit: PER_PAGE })
 
     const totalPages = Math.ceil((questions?.total ?? 0) / PER_PAGE)
 
     const resetFilters = () => {
         setSearchParams('')
+    }
+
+    useEffect(() => {
+        if (!isMobile) return
+        if (filtersOpen) {
+            filtersPanelRef.current?.focus()
+        } else {
+            filtersToggleRef.current?.focus()
+        }
+    }, [filtersOpen, isMobile])
+
+    useFocusTrap(filtersPanelRef, isMobile && filtersOpen)
+
+    const handlePanelKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (isMobile && e.key === 'Escape') {
+            setFiltersOpen(false)
+        }
     }
 
     return (
@@ -34,13 +56,14 @@ export const Questions = () => {
                         type="button"
                         aria-label="Открыть фильтры"
                         onClick={() => setFiltersOpen(true)}
+                        ref={filtersToggleRef}
                     >
                         <Filter />
                     </button>
                 </div>
                 {error ? (
                     <ErrorView message={getErrorMessage(error)} onRetry={refetch} />
-                ) : isLoading ? (
+                ) : isFetching && !questions ? (
                     <QuestionsSkeleton />
                 ) : questions?.data.length ? (
                     questions?.data?.map(item => (
@@ -68,7 +91,7 @@ export const Questions = () => {
                         </Button>
                     </div>
                 )}
-                {!isLoading && !error && <Pagination totalPages={totalPages} />}
+                {!isFetching && !error && <Pagination totalPages={totalPages} />}
             </section>
 
             {filtersOpen && (
@@ -85,6 +108,13 @@ export const Questions = () => {
                     filtersOpen && 'question-list__filters--open',
                 )}
                 onClose={() => setFiltersOpen(false)}
+                onKeyDown={handlePanelKeyDown}
+                inert={isMobile && !filtersOpen}
+                tabIndex={isMobile && filtersOpen ? -1 : undefined}
+                role={isMobile ? 'dialog' : undefined}
+                aria-modal={isMobile || undefined}
+                aria-label="Фильтры"
+                ref={filtersPanelRef}
             />
         </div>
     )

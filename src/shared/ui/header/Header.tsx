@@ -30,7 +30,7 @@ export const Header = () => {
                         <ul className="header__nav-list">
                             {NAV_ITEMS.map((item) => (
                                 <li className="header__nav-item" key={item}>
-                                    <NavLink to={''} className="header__nav-link">{item}</NavLink>
+                                    <NavLink to={'/'} className="header__nav-link">{item}</NavLink>
                                 </li>
                             ))}
                         </ul>
@@ -53,7 +53,7 @@ export const Header = () => {
                             <ul className="header__dropdown header__dropdown--nav">
                                 {NAV_ITEMS.map((item) => (
                                     <li className="header__nav-item" key={item}>
-                                        <NavLink to={''} className="header__nav-link" onClick={() => setOpenMenu(null)}>
+                                        <NavLink to={'/'} className="header__nav-link" onClick={() => setOpenMenu(null)}>
                                             {item}
                                         </NavLink>
                                     </li>
@@ -64,12 +64,12 @@ export const Header = () => {
                 </div>
 
                 <div className="header__auth">
-                    <Link to={''} className="header__auth-link">
+                    <Link to={'/login'} className="header__auth-link">
                         <Button variant="link" size="L">
                             Вход
                         </Button>
                     </Link>
-                    <Link to={''} className="header__auth-link">
+                    <Link to={'/register'} className="header__auth-link">
                         <Button variant="primary" size="M">
                             Регистрация
                         </Button>

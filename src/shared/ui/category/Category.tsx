@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Button } from '../button/Button'
 import { SkillButton } from '../skillButton/SkillButton'
 import './category.css'
@@ -14,23 +14,18 @@ interface CategoryProps<T> {
     onToggle?: (value: string) => void
     selected?: string[]
     categoryData?: T[]
-    limit?: number
+    showMore?: () => void;
+    hasMore?: boolean;
+    isFetching?: boolean;
     getValue?: (item: T) => string
     children?: ReactNode
     readonly?: boolean
 
 }
 
-export const Category = <T extends CategoryItem>({ categoryTitle, categoryData = [], limit = 5, selected = [], onToggle, getValue = (item: T) => item.title, children, readonly = false }: CategoryProps<T>) => {
+export const Category = <T extends CategoryItem>({ categoryTitle, categoryData = [], hasMore, isFetching, showMore, selected = [], onToggle, getValue = (item: T) => item.title, children, readonly = false }: CategoryProps<T>) => {
 
-    const [visibleCount, setVisibleCount] = useState(limit)
-
-    const visibleItems = categoryData.slice(0, visibleCount)
-    const hasMore = visibleCount < categoryData.length
-
-    const handleShowMore = () => {
-        setVisibleCount((prev) => Math.min(prev + limit, categoryData.length))
-    }
+    const visibleItems = categoryData
 
     return (
         <div className='category'>
@@ -54,9 +49,10 @@ export const Category = <T extends CategoryItem>({ categoryTitle, categoryData =
                 className='category__watch-all-button'
                 variant='link'
                 size='M'
-                onClick={handleShowMore}
+                onClick={showMore}
+                disabled={isFetching}
             >
-                Посмотреть все
+                Показать ещё
             </Button>
             )}
         </div>

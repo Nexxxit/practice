@@ -11,31 +11,73 @@ interface QuestionDetailsNavigationProps {
     className?: string
     isPrevDisabled?: boolean
     isNextDisabled?: boolean
+    isPrevLoading?: boolean
+    isNextLoading?: boolean
+    prevError?: string
+    nextError?: string
+    onPrevRetry?: () => void
+    onNextRetry?: () => void
 }
 
-export const QuestionDetailsNavigation = ({ onPrev, onNext, className, isNextDisabled, isPrevDisabled }: QuestionDetailsNavigationProps) => {
+export const QuestionDetailsNavigation = ({
+    onPrev,
+    onNext,
+    className,
+    isNextDisabled,
+    isPrevDisabled,
+    isPrevLoading,
+    isNextLoading,
+    prevError,
+    nextError,
+    onPrevRetry,
+    onNextRetry,
+}: QuestionDetailsNavigationProps) => {
     return (
         <Container className={cn('question-details-navigation', className)}>
-            <Button
-                className='question-details-navigation__prev-btn'
-                variant='tertiary'
-                size='M'
-                iconleft={<AltArrowLeft />}
-                onClick={onPrev}
-                disabled={isPrevDisabled}
-            >
-                Предыдущий
-            </Button>
-            <Button
-                className='question-details-navigation__next-btn'
-                variant='tertiary'
-                size='M'
-                iconRight={<AltArrowRight />}
-                onClick={onNext}
-                disabled={isNextDisabled}
-            >
-                Следующий
-            </Button>
+            <div className='question-details-navigation__side'>
+                <Button
+                    className='question-details-navigation__prev-btn'
+                    variant='tertiary'
+                    size='M'
+                    iconleft={<AltArrowLeft />}
+                    onClick={onPrev}
+                    disabled={isPrevDisabled || isPrevLoading}
+                >
+                    {isPrevLoading ? 'Загрузка…' : 'Предыдущий'}
+                </Button>
+                {prevError && (
+                    <span className='question-details-navigation__error'>
+                        {prevError}
+                        {onPrevRetry && (
+                            <button type='button' className='question-details-navigation__retry' onClick={onPrevRetry}>
+                                Повторить
+                            </button>
+                        )}
+                    </span>
+                )}
+            </div>
+            <div className='question-details-navigation__side question-details-navigation__side--right'>
+                <Button
+                    className='question-details-navigation__next-btn'
+                    variant='tertiary'
+                    size='M'
+                    iconRight={<AltArrowRight />}
+                    onClick={onNext}
+                    disabled={isNextDisabled || isNextLoading}
+                >
+                    {isNextLoading ? 'Загрузка…' : 'Следующий'}
+                </Button>
+                {nextError && (
+                    <span className='question-details-navigation__error'>
+                        {nextError}
+                        {onNextRetry && (
+                            <button type='button' className='question-details-navigation__retry' onClick={onNextRetry}>
+                                Повторить
+                            </button>
+                        )}
+                    </span>
+                )}
+            </div>
         </Container>
     )
 }

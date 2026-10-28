@@ -66,7 +66,7 @@ Accordion.Content = ({ children, className }: AccordionContentProps) => {
     const { isOpen, everOpen } = useAccordion()
 
     return (
-        <div className={cn("accordion__content-wrapper", isOpen && "accordion__content-wrapper--open")}>
+        <div className={cn("accordion__content-wrapper", isOpen && "accordion__content-wrapper--open")} inert={!isOpen}>
             {everOpen && (
                 <div className={cn("accordion__content", className)}>
                     {children}

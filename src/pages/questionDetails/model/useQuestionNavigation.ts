@@ -3,6 +3,7 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { useFetchQuestionQuery } from '@/entities/question/api/questionApi'
 import { PER_PAGE, useQuestionFilters } from '@/entities/question/model/useQuestionFilters'
 import { ROUTES_CONFIG } from '@/shared/config/routes/routesConfig'
+import { getErrorMessage } from '@/shared/lib/getErrorMessage'
 import type { Question } from '@/entities/question/model/types'
 
 export const useQuestionNavigation = () => {
@@ -19,11 +20,14 @@ export const useQuestionNavigation = () => {
     const atStart = currentQuestionIndex === 0 && page > 1
     const atEnd = currentQuestionIndex !== -1 && currentQuestionIndex === items.length - 1 && page < totalPages
 
-    const { data: prevPageData } = useFetchQuestionQuery(atStart ? { ...filters, page: page - 1, limit: PER_PAGE } : skipToken)
-    const { data: nextPageData } = useFetchQuestionQuery(atEnd ? { ...filters, page: page + 1, limit: PER_PAGE } : skipToken)
+    const { data: prevPageData, isFetching: isFetchingPrev, error: prevPageError, refetch: refetchPrev } = useFetchQuestionQuery(atStart ? { ...filters, page: page - 1, limit: PER_PAGE } : skipToken)
+    const { data: nextPageData, isFetching: isFetchingNext, error: nextPageError, refetch: refetchNext } = useFetchQuestionQuery(atEnd ? { ...filters, page: page + 1, limit: PER_PAGE } : skipToken)
 
-    const canGoPrev = currentQuestionIndex > 0 || atStart
-    const canGoNext = (currentQuestionIndex >= 0 && currentQuestionIndex < items.length - 1) || atEnd
+    const prevReady = !isFetchingPrev && !prevPageError && Boolean(prevPageData?.data.length)
+    const nextReady = !isFetchingNext && !nextPageError && Boolean(nextPageData?.data.length)
+
+    const canGoPrev = currentQuestionIndex > 0 || (atStart && prevReady)
+    const canGoNext = (currentQuestionIndex >= 0 && currentQuestionIndex < items.length - 1) || (atEnd && nextReady)
 
     const goToQuestion = (question: Question, targetPage: number) => {
         const params = new URLSearchParams(searchParams)
@@ -60,5 +64,16 @@ export const useQuestionNavigation = () => {
         }
     }
 
-    return { onPrev, onNext, isPrevDisabled: !canGoPrev, isNextDisabled: !canGoNext }
+    return {
+        onPrev,
+        onNext,
+        isPrevDisabled: !canGoPrev,
+        isNextDisabled: !canGoNext,
+        isPrevLoading: atStart && isFetchingPrev,
+        isNextLoading: atEnd && isFetchingNext,
+        prevError: atStart && prevPageError ? getErrorMessage(prevPageError) : undefined,
+        nextError: atEnd && nextPageError ? getErrorMessage(nextPageError) : undefined,
+        onPrevRetry: refetchPrev,
+        onNextRetry: refetchNext,
+    }
 }
